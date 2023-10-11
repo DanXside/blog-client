@@ -1,0 +1,50 @@
+.header-mainLinks {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 22rem;
+    font-weight: 600;
+    font-size: 2rem;
+    a {
+        color: #ffffff;
+        text-decoration: none;
+        transition: 0.3s all;
+        &:hover {
+            color: #3137C9
+        }
+    }
+}
+
+.header-buttonGroup {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 34rem;
+    button {
+        width: 16rem;
+    }
+}
+
+.userInfo-back {
+    position: relative;
+    width: 30rem;
+    height: 18rem;
+    background: url(/src/assets/img/7112a7f6eccd4d00c37ac86c939a696e.jpeg) center center/cover no-repeat;
+}
+
+.userInfo-wrap {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    top: 13rem;
+    left: 25%;
+}
+
+.userInfo-avatar {
+    width: 10rem;
+    height: 10rem;
+    background: url(/src/assets/img/7dc5a9378b3ac6c28152d2bbf9d6af77.jpeg) center center/cover no-repeat;
+    border-radius: 10rem;
+}
