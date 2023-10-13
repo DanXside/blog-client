@@ -85,24 +85,31 @@ const Header = () => {
                     </>
                     :
                     <div className="header-buttonGroup">
-                        <Button 
-                            onClick={() => setAuth(true)}
-                            variant="contained"
-                            sx={{
-                                backgroundColor: '#3137C9',
+                        <Link to="/login" >
+                            <Button 
+                                variant="contained"
+                                sx={{
+                                    backgroundColor: '#3137C9',
+                                    fontWeight: 400,
+                                    fontSize: '1.2rem',
+                                    'a': {
+                                        textDecoration: 'none',
+                                        color: '#ffffff'
+                                    }
+                                }}
+                            >
+                                Войти
+                            </Button>
+                        </Link>
+                        <Link to="/registration" >
+                            <Button variant="outlined" sx={{
+                                borderColor: '#3137C9',
                                 fontWeight: 400,
                                 fontSize: '1.2rem'
-                            }}
-                        >
-                            Войти
-                        </Button>
-                        <Button variant="outlined" sx={{
-                            borderColor: '#3137C9',
-                            fontWeight: 400,
-                            fontSize: '1.2rem'
-                        }}>
-                            Зарегистрироваться
-                        </Button>
+                            }}>
+                                Зарегистрироваться
+                            </Button>
+                        </Link>
                     </div>
                 }
             </Toolbar>
