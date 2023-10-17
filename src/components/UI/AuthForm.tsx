@@ -1,8 +1,19 @@
-import { FC } from "react";
-import { Link } from 'react-router-dom';
+import { FC, useContext, useEffect } from "react";
+import { AuthContext } from "../context/context";
+import { Link, Navigate } from 'react-router-dom';
 import styles from '../LoginForm/index.module.scss';
 import { Box, TextField, Typography, Button } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { SubmitHandler, useForm } from "react-hook-form";
+import { IUser } from "../../models/IUser";
+
+type Inputs = {
+    name: string;
+    email: string;
+    password: string;
+    role: string;
+    avatar: string;
+}
 
 interface AuthProps {
     title: string;
@@ -12,9 +23,23 @@ interface AuthProps {
         href: string;
     };
     registration: boolean;
+    endpoint: (user: IUser) => any;
+    result?: IUser | undefined;
 }
 
-const AuthForm: FC<AuthProps> = ({title, buttonText, link, registration}) => {
+const AuthForm: FC<AuthProps> = ({title, buttonText, link, registration, endpoint}) => {
+    const {isAuth, setAuth} = useContext(AuthContext);
+    const {register, handleSubmit, formState: {errors}} = useForm<Inputs>();
+
+    const onSubmit: SubmitHandler<Inputs> = async (values) => {
+        endpoint(values);
+        const {data} = await endpoint(values);
+        if (data.token) {
+            window.localStorage.setItem('token', data.token as string);
+        }
+        setAuth(true);
+    };
+
     return (
         <Box className={styles.loginWrap}>
             <Typography variant='h2' component="h2" className={styles.loginTitle} sx={{
@@ -23,13 +48,38 @@ const AuthForm: FC<AuthProps> = ({title, buttonText, link, registration}) => {
             }} >
                 {title}
             </Typography>
-            <Box component="form" className={styles.loginForm} >
+            <Box component="form" className={styles.loginForm} onSubmit={handleSubmit(onSubmit)} >
                 {
                     registration &&
-                    <TextField className={styles.loginAddInput} variant="standard" label="Введите своё имя" sx={{marginBottom: '1.4rem'}} />
+                    <TextField 
+                        className={styles.loginAddInput} 
+                        variant="standard" 
+                        label="Введите своё имя"
+                        error={Boolean(errors.name?.message)} 
+                        sx={{marginBottom: '1.4rem'}}
+                        helperText={errors.name?.message}
+                        {...register('name', {required: 'Введите ваше имя'})} 
+                    />
                 }
-                <TextField className={styles.loginInput} variant="standard" label="Email" />
-                <TextField className={styles.loginInput} variant="standard" label="Пароль" sx={{marginTop: '1.4rem'}} />
+                <TextField 
+                    className={styles.loginInput} 
+                    variant="standard" 
+                    label="Email"
+                    type="email"
+                    error={Boolean(errors.email?.message)}
+                    helperText={errors.email?.message}
+                    {...register('email', {required: 'Укажите почту'})} 
+                />
+                <TextField 
+                    className={styles.loginInput} 
+                    variant="standard" 
+                    label="Пароль"
+                    type="password"
+                    error={Boolean(errors.password?.message)} 
+                    sx={{marginTop: '1.4rem'}}
+                    helperText={errors.password?.message}
+                    {...register('password', {required: 'Укажите пароль'})}
+                />
                 {
                     registration &&
                     <Button component="label" variant="contained" startIcon={<CloudUploadIcon />} sx={{
@@ -41,7 +91,11 @@ const AuthForm: FC<AuthProps> = ({title, buttonText, link, registration}) => {
                         fontWeight: 400
                     }}>
                         Загрузить аватарку
-                        <input className={styles.fileInput} type="file" />
+                        <input 
+                            className={styles.fileInput} 
+                            type="file"
+                            {...register('avatar')}
+                        />
                     </Button>
                 }
                 <Button type="submit" variant="contained" sx={{
@@ -60,6 +114,9 @@ const AuthForm: FC<AuthProps> = ({title, buttonText, link, registration}) => {
                     {link.linkText}
                 </Link>
             </Box>
+            {
+                isAuth && <Navigate to="/" />
+            }
         </Box>
     )
 };

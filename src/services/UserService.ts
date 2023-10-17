@@ -3,7 +3,16 @@ import { IUser } from '../models/IUser';
 
 export const userAPI = createApi({
     reducerPath: 'userAPI',
-    baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:3001/auth'}),
+    baseQuery: fetchBaseQuery({
+        baseUrl: 'http://localhost:3001/auth',
+        prepareHeaders: (headers: Headers) => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                headers.set('Authorization', `Bearer ${token}`);
+            }
+            return headers;
+        }
+    }),
     tagTypes: ['User'],
     endpoints: (builder) => ({
         createUser: builder.mutation<IUser, IUser>({
@@ -14,18 +23,17 @@ export const userAPI = createApi({
             }),
             invalidatesTags: ['User']
         }),
-        loginUser: builder.mutation<IUser, string>({
-            query: (token) => ({
+        loginUser: builder.mutation<IUser, IUser>({
+            query: (user) => ({
                 url: '/login',
                 method: 'POST',
-                body: token
+                body: user
             }),
             invalidatesTags: ['User']
         }),
-        getUser: builder.query<IUser, IUser>({
-            query: (user) => ({
+        getUser: builder.query<IUser, undefined>({
+            query: () => ({
                 url: '/me',
-                body: user
             }),
             providesTags: ['User']
         })
