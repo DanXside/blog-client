@@ -6,9 +6,20 @@ import { AuthContext } from "./components/context/context";
 import theme from "./assets/mui_styles/theme";
 import Login from "./components/pages/Login/login";
 import Registration from "./components/pages/Registration/registration";
+import { userAPI } from "./services/UserService";
+import { useAppDispatch } from "./store/store";
 
 function App() {
   const [isAuth, setAuth] = React.useState(false);
+  const {data} = userAPI.useGetUserQuery(undefined);
+  const dispatch = useAppDispatch();
+
+  React.useEffect( () => {
+    dispatch(userAPI.endpoints.getUser.initiate(undefined));
+    if (data) {
+      setAuth(true);
+    }
+  }, [dispatch, data])
 
   return (
     <ThemeProvider theme={theme}>

@@ -6,6 +6,7 @@ import { Box, TextField, Typography, Button } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IUser } from "../../models/IUser";
+import { userAPI } from "../../services/UserService";
 
 type Inputs = {
     name: string;
@@ -34,8 +35,8 @@ const AuthForm: FC<AuthProps> = ({title, buttonText, link, registration, endpoin
     const onSubmit: SubmitHandler<Inputs> = async (values) => {
         endpoint(values);
         const {data} = await endpoint(values);
-        if (data.token) {
-            window.localStorage.setItem('token', data.token as string);
+        if (data.token && !registration) {
+            window.localStorage.setItem('token', `Bearer ${data.token}` as string);
         }
         setAuth(true);
     };
