@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect } from "react";
+import { FC, useContext } from "react";
 import { AuthContext } from "../context/context";
 import { Link, Navigate } from 'react-router-dom';
 import styles from '../LoginForm/index.module.scss';
