@@ -1,9 +1,12 @@
-import { FC, useContext } from "react";
+import React, { FC, useContext, useState, ChangeEvent } from "react";
 import { AuthContext } from "../context/context";
 import { Link, Navigate } from 'react-router-dom';
+import axios from "axios";
+
 import styles from '../LoginForm/index.module.scss';
 import { Box, TextField, Typography, Button } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IUser } from "../../models/IUser";
 
@@ -27,18 +30,40 @@ interface AuthProps {
     result?: IUser | undefined;
 }
 
+
 const AuthForm: FC<AuthProps> = ({title, buttonText, link, registration, endpoint}) => {
     const {isAuth, setAuth} = useContext(AuthContext);
+    const [imgUrl, setImgUrl] = useState('');
     const {register, handleSubmit, formState: {errors}} = useForm<Inputs>();
 
     const onSubmit: SubmitHandler<Inputs> = async (values) => {
+        if (registration) {
+            values.avatar = imgUrl;
+        }
         endpoint(values);
         const {data} = await endpoint(values);
         if (data.token) {
-            window.localStorage.setItem('token', data.token as string);
+            window.localStorage.setItem('token', `Bearer ${data.token}` as string);
         }
         setAuth(true);
     };
+
+    const handleChange = async (event: ChangeEvent) => {
+        try {
+            const formData = new FormData();
+            const target = event.target as HTMLInputElement;
+            if (!target.files) {
+                return;
+            }
+            const file = target.files[0];
+            formData.append('image', file);
+            const {data} = await axios.post('http://localhost:3001/upload', formData);
+            setImgUrl(data.url);
+        }  catch (e) {
+            console.warn(e);
+            alert('Не удалось загрузить файл');
+        } 
+    }
 
     return (
         <Box className={styles.loginWrap}>
@@ -95,6 +120,7 @@ const AuthForm: FC<AuthProps> = ({title, buttonText, link, registration, endpoin
                             className={styles.fileInput} 
                             type="file"
                             {...register('avatar')}
+                            onChange={(e) => handleChange(e)}
                         />
                     </Button>
                 }

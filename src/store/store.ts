@@ -1,8 +1,11 @@
 import { combineReducers, configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { userAPI } from "../services/UserService";
+import authReducer from './reducers/UserReducer';
+import { useDispatch } from "react-redux";
 
 const rootReducer = combineReducers({
-    [userAPI.reducerPath]: userAPI.reducer
+    [userAPI.reducerPath]: userAPI.reducer,
+    authReducer
 })
 
 export const setupStore = () => {
@@ -16,3 +19,5 @@ export const setupStore = () => {
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppStore = ReturnType<typeof setupStore>;
 export type AppDispatch = AppStore['dispatch'];
+
+export const useAppDispatch: () => AppDispatch = useDispatch
