@@ -15,8 +15,8 @@ function App() {
   const dispatch = useAppDispatch();
 
   React.useEffect( () => {
-    dispatch(userAPI.endpoints.getUser.initiate(undefined));
     if (data) {
+      dispatch(userAPI.endpoints.getUser.initiate(undefined));
       setAuth(true);
     }
   }, [dispatch, data])
