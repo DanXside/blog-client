@@ -40,7 +40,6 @@ const AuthForm: FC<AuthProps> = ({title, buttonText, link, registration, endpoin
         if (registration) {
             values.avatar = imgUrl;
         }
-        endpoint(values);
         const {data} = await endpoint(values);
         if (data.token) {
             window.localStorage.setItem('token', `Bearer ${data.token}` as string);
