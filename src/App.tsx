@@ -8,6 +8,7 @@ import Login from "./components/pages/Login/login";
 import Registration from "./components/pages/Registration/registration";
 import { userAPI } from "./services/UserService";
 import { useAppDispatch } from "./store/store";
+import DetailPost from "./components/pages/DetailPost";
 
 function App() {
   const [isAuth, setAuth] = React.useState(false);
@@ -27,6 +28,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home  />} />
+            <Route path="/post/:id" element={<DetailPost />} />
             <Route path="/login" element={<Login />} />
             <Route path="/registration" element={<Registration />} />
           </Routes>

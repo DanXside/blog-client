@@ -2,7 +2,7 @@ import { userAPI } from "../../services/UserService";
 import AuthForm from "../UI/AuthForm";
 
 const LoginForm = () => {
-    const [loginUser, {}] = userAPI.useLoginUserMutation();
+    const [loginUser, {isError, error}] = userAPI.useLoginUserMutation();
 
     return (
         <>
@@ -12,6 +12,8 @@ const LoginForm = () => {
                 link={{linkText: 'Регистрация', href: '/registration'}}
                 registration={false}
                 endpoint={loginUser}
+                isError={isError}
+                error={error}
             />
         </>
     )

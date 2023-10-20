@@ -7,14 +7,17 @@ export const postsAPI = createApi({
     baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:3001/posts'}),
     tagTypes: ['Posts'],
     endpoints: (builder) => ({
-        getPosts: builder.query<IPost[], {limit: number, page: number}>({
-            query: ({limit, page}) => ({
-                url: '/',
-                params: {
-                   limit,
-                   page
-                }
-            }),
+        getPosts: builder.query<any, {limit: number, page: number}>({
+            query: (query) => {
+                const {limit, page} = query;
+                return {
+                    url: `/`,
+                    params: {
+                        page,
+                        limit
+                    }
+                } 
+            },
             providesTags: ['Posts']
         }),
         getPost: builder.query<IPost, number>({

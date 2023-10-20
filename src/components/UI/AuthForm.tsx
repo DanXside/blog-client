@@ -28,10 +28,12 @@ interface AuthProps {
     registration: boolean;
     endpoint: (user: IUser) => any;
     result?: IUser | undefined;
+    isError: boolean;
+    error: any;
 }
 
 
-const AuthForm: FC<AuthProps> = ({title, buttonText, link, registration, endpoint}) => {
+const AuthForm: FC<AuthProps> = ({title, buttonText, link, registration, endpoint, isError, error}) => {
     const {isAuth, setAuth} = useContext(AuthContext);
     const [imgUrl, setImgUrl] = useState('');
     const {register, handleSubmit, formState: {errors}} = useForm<Inputs>();
@@ -41,6 +43,9 @@ const AuthForm: FC<AuthProps> = ({title, buttonText, link, registration, endpoin
             values.avatar = imgUrl;
         }
         const {data} = await endpoint(values);
+        if (isError) {
+            alert(error.data.message);
+        }
         if (data.token) {
             window.localStorage.setItem('token', `Bearer ${data.token}` as string);
         }
