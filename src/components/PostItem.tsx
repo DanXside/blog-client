@@ -2,16 +2,29 @@ import {Box, Card, CardActionArea, CardContent, CardMedia, Typography, CardActio
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import EditIcon from '@mui/icons-material/Edit';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import CommentIcon from '@mui/icons-material/Comment';
 import { IPost } from "../models/IPost";
 import { userAPI } from "../services/UserService";
 import { FC } from "react";
+import { Link } from "react-router-dom";
 
 interface PostProps {
-    post: IPost;
+    post: IPost & {
+        user: {
+            name: string
+        }
+    };
+
 }
 
 const PostItem: FC<PostProps> = ({post}) => {
     const {data: user} = userAPI.useGetUserQuery(undefined);
+    const formatter = new Intl.DateTimeFormat("en-GB", {
+        year: "numeric",
+        month: "long",
+        day: "2-digit"
+    });
 
     return (
         <Card sx={{width: '60rem'}} >
@@ -60,7 +73,19 @@ const PostItem: FC<PostProps> = ({post}) => {
                     >
                         {post.text}
                     </Typography>
-                    <Box display="flex" sx={{marginTop: '2rem', gap: '1rem', alignItems: 'center'}}>
+                    <Typography
+                        variant="body2"
+                        component="p"
+                        sx={{
+                            fontWeight: 400,
+                            fontSize: '1.4rem',
+                            color: '#828282',
+                            marginTop: '1rem'
+                        }}
+                    >
+                            {post?.user.name}
+                    </Typography>
+                    <Box display="flex" sx={{marginTop: '1rem', gap: '1rem', alignItems: 'center'}}>
                         <Typography
                             variant="body2"
                             component="p"
@@ -70,7 +95,7 @@ const PostItem: FC<PostProps> = ({post}) => {
                                 color: '#828282'
                             }}
                         >
-                            21.06.2020
+                            {formatter.format(Date.parse(post?.createdAt as string))}
                         </Typography>
                         <Typography
                             variant="body2"
@@ -87,10 +112,30 @@ const PostItem: FC<PostProps> = ({post}) => {
                 </CardContent>
             </CardActionArea>
             <CardActions sx={{backgroundColor: '#202020', padding: '0 2.5rem 1rem 2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                <Button variant="text" sx={{fontSize: '1.2rem'}}>
-                    Читать
-                </Button>
+                <Link to={`/post/${post._id}`}>
+                    <Button variant="text" sx={{fontSize: '1.2rem'}}>
+                        Читать
+                    </Button>
+                </Link>
                 <Box sx={{display: 'flex', alignItems: 'center', gap: '1rem'}}>
+                    <Box sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.6rem',
+                        fontSize: '1.3rem',
+                        color: '#ffffff'
+                    }} >
+                        {post.viewsCount} <VisibilityIcon sx={{width: '2rem', height: '2rem', color: '#C4C4C4'}} /> 
+                    </Box>
+                    <Box sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.6rem',
+                        fontSize: '1.3rem',
+                        color: '#ffffff'
+                    }} >
+                        10 <CommentIcon sx={{width: '2rem', height: '2rem', color: '#C4C4C4'}} /> 
+                    </Box>
                     <IconButton>
                         <EditIcon sx={{width: '2rem', height: '2rem', color: '#C4C4C4'}} />
                     </IconButton>

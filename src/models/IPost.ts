@@ -6,5 +6,5 @@ export interface IPost {
     sections: Array<string>;
     viewsCount: number;
     user: string;
-    time: Date;
+    createdAt?: any;
 }

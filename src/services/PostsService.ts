@@ -20,12 +20,13 @@ export const postsAPI = createApi({
             },
             providesTags: ['Posts']
         }),
-        getPost: builder.query<IPost, number>({
+        getPost: builder.query<IPost, string>({
             query: (id) => ({
                 url: `/${id}`,
-                id
-            }),
-            providesTags: ['Posts']
+                params: {
+                    id
+                }
+            })
         }),
         createPost: builder.mutation<IPost, IPost>({
             query: (post) => ({

@@ -47,7 +47,7 @@ const AuthForm: FC<AuthProps> = ({title, buttonText, link, registration, endpoin
             alert(error.data.message);
         }
         if (data.token) {
-            window.localStorage.setItem('token', `Bearer ${data.token}` as string);
+            window.sessionStorage.setItem('token', `Bearer ${data.token}` as string);
         }
         setAuth(true);
     };

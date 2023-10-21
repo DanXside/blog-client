@@ -1,5 +1,13 @@
+import { IUser } from "./IUser";
+
 export interface IComment {
     text: string;
     user: string;
-    postId: number;
+    post: string;
+}
+
+export interface ICommentOutPut {
+    text: string;
+    user: IUser;
+    post: string;
 }

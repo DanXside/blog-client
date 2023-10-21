@@ -1,0 +1,107 @@
+.postWrap {
+    width: 120rem;
+    display: flex;
+    flex-direction: column;
+    background-color: #202020;
+    border-radius: 1rem;
+    padding: 2.5rem;
+    margin: 0 auto;
+    margin-top: 6rem;
+}
+
+.postTitle, .postCommentTitle {
+    font-weight: 600;
+    font-size: 2.4rem;
+    line-height: 2.1rem;
+    color: #ffffff;
+    margin-bottom: 2rem;
+}
+
+.postCommentTitle {
+    margin-top: 3rem;
+}
+
+.postInfo, .postTags {
+    color: #828282;
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+
+.postTags {
+    cursor: pointer;
+    transition: 0.2s;
+    &:hover {
+        color: #ffffff
+    }
+}
+
+.postImage {
+    width: 100rem;
+    margin-top: 2rem;
+    img {
+        width: 100%
+    }
+}
+
+.postText {
+    width: 100rem;
+    color: #ffffff;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 2.1rem; /* 150% */
+    margin-top: 2.5rem;
+}
+
+.postForm {
+    display: flex;
+    flex-direction: column;
+    width: 60rem;
+    margin-top: 2rem;
+}
+
+.postFormInput {
+    input {
+        border-bottom: 1px solid rgba(63, 63, 63, 1);
+        font-size: 1.4rem;
+        color: #ffffff
+    }
+    label {
+        color: rgba(255, 255, 255, 0.2);
+        font-weight: 400;
+        font-size: 1.4rem;
+    }
+}
+
+.postComments {
+    display: flex;
+    flex-direction: column;
+    width: 100rem;
+    margin-top: 2.5rem;
+}
+
+.postCommentsItem {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+    &__userName {
+        color: #ffffff;
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+    &__userAvatar {
+        width: 5rem;
+        height: 5rem;
+        img {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 10rem;
+        }
+    }
+    &__text {
+        width: 100%;
+        color: #FFF;
+        font-size: 1.4rem;
+        font-weight: 400;
+        margin-top: 1.5rem;
+    }
+}
