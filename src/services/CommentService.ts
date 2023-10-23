@@ -31,6 +31,15 @@ export const commentAPI = createApi({
                 }
             }),
             providesTags: ['Comment']
+        }),
+        getCommCount: builder.query<any, number>({
+            query: (id) => ({
+                url: '/comm-count',
+                params: {
+                    id
+                },
+                providesTags: ['Comment']
+            })
         })
     })
 })

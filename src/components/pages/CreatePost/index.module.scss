@@ -1,0 +1,52 @@
+.create {
+    width: 120rem;
+    display: flex;
+    flex-direction: column;
+    background-color: #202020;
+    border-radius: 1rem;
+    padding: 2.5rem;
+    margin: 0 auto;
+    margin-top: 6rem;
+    &__title {
+        font-weight: 600;
+        font-size: 2.6rem;
+        color: #ffffff;
+        text-align: center;
+    }
+    &__preview {
+        display: flex;
+        flex-direction: column;
+        width: 100rem;
+        margin: 0 auto;
+        margin-top: 2rem;
+        img {
+            width: 100%;
+            margin-top: 2rem;
+        }
+    }
+    &__title_input {
+        width: 60rem;
+        label {
+            font-size: 1.2rem;
+            color: #ffffff;
+        }
+        input {
+            font-size: 1.2rem;
+            color: #ffffff;
+        }
+        fieldset {
+            border-color: #ffffff;
+        }
+    }
+}
+
+.fileInput {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+}

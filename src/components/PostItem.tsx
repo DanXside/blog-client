@@ -8,11 +8,13 @@ import { IPost } from "../models/IPost";
 import { userAPI } from "../services/UserService";
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { commentAPI } from "../services/CommentService";
+import { postsAPI } from "../services/PostsService";
 
 interface PostProps {
     post: IPost & {
-        user: {
-            name: string
+        user?: {
+            name?: string
         }
     };
 
@@ -20,6 +22,10 @@ interface PostProps {
 
 const PostItem: FC<PostProps> = ({post}) => {
     const {data: user} = userAPI.useGetUserQuery(undefined);
+    const {data: count} = commentAPI.useGetCommCountQuery(post._id);
+
+    const [deletePost, {}] = postsAPI.useDeletePostMutation();
+
     const formatter = new Intl.DateTimeFormat("en-GB", {
         year: "numeric",
         month: "long",
@@ -134,17 +140,19 @@ const PostItem: FC<PostProps> = ({post}) => {
                         fontSize: '1.3rem',
                         color: '#ffffff'
                     }} >
-                        10 <CommentIcon sx={{width: '2rem', height: '2rem', color: '#C4C4C4'}} /> 
+                        {count?.data.commCount} <CommentIcon sx={{width: '2rem', height: '2rem', color: '#C4C4C4'}} /> 
                     </Box>
-                    <IconButton>
-                        <EditIcon sx={{width: '2rem', height: '2rem', color: '#C4C4C4'}} />
-                    </IconButton>
                     {
                         user?.roles === 'ADMIN'
                         ?
-                        <IconButton>
-                            <HighlightOffIcon sx={{width: '2rem', height: '2rem', color: '#C4C4C4'}} />
-                        </IconButton>
+                        <>
+                            <IconButton>
+                                <EditIcon sx={{width: '2rem', height: '2rem', color: '#C4C4C4'}} />
+                            </IconButton>
+                            <IconButton onClick={() => deletePost(post._id)}>
+                                <HighlightOffIcon sx={{width: '2rem', height: '2rem', color: '#C4C4C4'}} />
+                            </IconButton>
+                        </>
                         :
                         <></>
                     }

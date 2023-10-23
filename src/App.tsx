@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/pages/Home/home";
 import { ThemeProvider } from "@emotion/react";
@@ -9,18 +9,23 @@ import Registration from "./components/pages/Registration/registration";
 import { userAPI } from "./services/UserService";
 import { useAppDispatch } from "./store/store";
 import DetailPost from "./components/pages/DetailPost";
+import CreatePost from "./components/pages/CreatePost";
 
 function App() {
   const [isAuth, setAuth] = React.useState(false);
   const {data} = userAPI.useGetUserQuery(undefined);
   const dispatch = useAppDispatch();
 
-  React.useEffect( () => {
-    if (data) {
+  const checkUser = useMemo(() => {
       dispatch(userAPI.endpoints.getUser.initiate(undefined));
       setAuth(true);
+  }, [dispatch, data]);
+
+  React.useEffect( () => {
+    if (data) {
+      checkUser;
     }
-  }, [dispatch, data])
+  }, [checkUser]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -29,6 +34,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home  />} />
             <Route path="/post/:id" element={<DetailPost />} />
+            <Route path="/create-post" element={<CreatePost />} />
             <Route path="/login" element={<Login />} />
             <Route path="/registration" element={<Registration />} />
           </Routes>

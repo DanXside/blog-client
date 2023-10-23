@@ -21,7 +21,6 @@ const DetailPost = () => {
     const {data: authUser} = userAPI.useGetUserQuery(undefined);
     const [createComment, {}] = commentAPI.useCreateCommentMutation();
     const {data: comments} = commentAPI.useGetCommentsQuery(postId);
-    console.log(comments);
 
     const postDate = new Date(data?.createdAt)?.toJSON()?.split('T')[0];
 

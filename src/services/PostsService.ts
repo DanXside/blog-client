@@ -4,7 +4,16 @@ import { IPost } from "../models/IPost";
 
 export const postsAPI = createApi({
     reducerPath: 'postsAPI',
-    baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:3001/posts'}),
+    baseQuery: fetchBaseQuery({
+        baseUrl: 'http://localhost:3001/posts',
+        prepareHeaders: (headers: Headers) => {
+            const token = sessionStorage.getItem('token');
+            if (token) {
+                headers.set('authorization', token);
+            }
+            return headers;
+        }
+    }),
     tagTypes: ['Posts'],
     endpoints: (builder) => ({
         getPosts: builder.query<any, {limit: number, page: number}>({
@@ -44,11 +53,13 @@ export const postsAPI = createApi({
             }),
             invalidatesTags: ['Posts']
         }),
-        deletePost: builder.mutation<IPost, number>({
+        deletePost: builder.mutation<IPost[], number>({
             query: (id) => ({
-                url: `/${id}`,
+                url: `/`,
                 method: 'DELETE',
-                id
+                params: {
+                    id
+                }
             }),
             invalidatesTags: ['Posts']
         })
