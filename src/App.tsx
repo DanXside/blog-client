@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useMemo } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/pages/Home/home";
 import { ThemeProvider } from "@emotion/react";
@@ -22,8 +22,10 @@ function App() {
   }, [dispatch, data]);
 
   React.useEffect( () => {
-    if (data) {
+    if (data && sessionStorage.getItem('token')) {
       checkUser;
+    } else {
+      setAuth(false);
     }
   }, [checkUser]);
 

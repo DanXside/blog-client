@@ -12,6 +12,7 @@
         font-size: 2.6rem;
         color: #ffffff;
         text-align: center;
+        margin-top: 2rem;
     }
     &__preview {
         display: flex;
@@ -37,6 +38,44 @@
         fieldset {
             border-color: #ffffff;
         }
+    }
+    &__tags_wrap {
+        display: flex;
+        align-items: center;
+        gap: 1.4rem;
+        margin: 0 auto;
+        margin-top: 2rem;
+    }
+    &__tag_box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 8rem;
+        height: 3rem;
+        border-radius: 1rem;
+        background-color: rgba(197, 197, 197, 0.54);
+        cursor: pointer;
+        &:focus {
+            background-color: rgba(229, 229, 229, 0.54);
+        }
+        span {
+            font-weight: 400;
+            font-size: 1.2rem;
+            color: #000000;
+        }
+    }
+    &__selected_tags {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.4rem;
+        border-bottom: 1px solid #999999;
+        font-weight: 400;
+        font-size: 1.4rem;
+        color: #999999;
+    }
+    &__editor {
+        margin-top: 3rem;
     }
 }
 

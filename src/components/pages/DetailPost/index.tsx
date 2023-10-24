@@ -6,6 +6,7 @@ import { Box, Button, TextField } from "@mui/material";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 import styles from './index.module.scss';
+import Markdown from 'react-markdown'
 import { commentAPI } from "../../../services/CommentService";
 import { userAPI } from "../../../services/UserService";
 
@@ -62,7 +63,7 @@ const DetailPost = () => {
                     }
                 </Box>
                 <Box className={styles.postText} >
-                    {data?.text}
+                    <Markdown children={data?.text} />
                 </Box>
                 <h2 className={styles.postCommentTitle} >Обсуждение</h2>
                 <form className={styles.postForm} onSubmit={handleSubmit(onSubmit)}>

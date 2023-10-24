@@ -22,7 +22,7 @@ interface PostProps {
 
 const PostItem: FC<PostProps> = ({post}) => {
     const {data: user} = userAPI.useGetUserQuery(undefined);
-    const {data: count} = commentAPI.useGetCommCountQuery(post._id);
+    const {data: count} = commentAPI.useGetCommCountQuery(post._id as number);
 
     const [deletePost, {}] = postsAPI.useDeletePostMutation();
 
@@ -89,7 +89,7 @@ const PostItem: FC<PostProps> = ({post}) => {
                             marginTop: '1rem'
                         }}
                     >
-                            {post?.user.name}
+                            {post?.user?.name}
                     </Typography>
                     <Box display="flex" sx={{marginTop: '1rem', gap: '1rem', alignItems: 'center'}}>
                         <Typography
@@ -149,7 +149,7 @@ const PostItem: FC<PostProps> = ({post}) => {
                             <IconButton>
                                 <EditIcon sx={{width: '2rem', height: '2rem', color: '#C4C4C4'}} />
                             </IconButton>
-                            <IconButton onClick={() => deletePost(post._id)}>
+                            <IconButton onClick={() => deletePost(post._id as number)}>
                                 <HighlightOffIcon sx={{width: '2rem', height: '2rem', color: '#C4C4C4'}} />
                             </IconButton>
                         </>

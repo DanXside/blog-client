@@ -24,7 +24,7 @@ const Header = () => {
     };
     const logout = () => {
         setAuth(false);
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
         setAnchorEl(null);
     };
 

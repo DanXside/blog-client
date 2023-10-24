@@ -1,10 +1,10 @@
 export interface IPost {
-    _id: number;
+    _id?: number;
     title: string;
     text: string;
     postImage: string;
     sections: Array<string>;
-    viewsCount: number;
-    user: string;
+    viewsCount?: number;
+    user?: string;
     createdAt?: any;
 }
