@@ -34,7 +34,6 @@ const DetailPost = () => {
                 user: authUser?.id as string,
                 post: postId
             };
-            console.log(doc);
             createComment(doc);
             e?.target.reset();
             alert('Комментарий успешно отправлен :)');

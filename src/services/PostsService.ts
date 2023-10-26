@@ -49,11 +49,14 @@ export const postsAPI = createApi({
             query: (post) => ({
                 url: `/update-post/${post._id}`,
                 method: 'PATCH',
-                body: post
+                body: post,
+                params: {
+                    id: post._id
+                }
             }),
             invalidatesTags: ['Posts']
         }),
-        deletePost: builder.mutation<IPost[], number>({
+        deletePost: builder.mutation<IPost[], string>({
             query: (id) => ({
                 url: `/`,
                 method: 'DELETE',

@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useContext, useMemo, useState } from "react";
+import { ChangeEvent, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import Header from "../../UI/header";
 import { AuthContext } from "../../context/context";
 
@@ -9,6 +9,7 @@ import UploadButton from "../../UI/UploadButton";
 import SimpleMdeReact, { SimpleMDEReactProps } from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { postsAPI } from "../../../services/PostsService";
+import { useParams } from "react-router-dom";
 
 const CreatePost = () => {
     const tags: string[] = [
@@ -21,6 +22,8 @@ const CreatePost = () => {
         'mobile app',
         'игры'
     ];
+    const params = useParams();
+    const postId = params.id as string;
 
     const {isAuth} = useContext(AuthContext);
     const [imgUrl, setImgUrl] = useState('');
@@ -29,6 +32,19 @@ const CreatePost = () => {
     const [useTags, setUseTags] = useState<string[]>([]);
 
     const [createPost, {}] = postsAPI.useCreatePostMutation();
+    const [updatePost, {}] = postsAPI.useUpdatePostMutation();
+    const {data} = postsAPI.useGetPostQuery(postId);
+
+    useEffect(() => {
+        if (postId) {
+            setImgUrl(data?.postImage as string);
+            setTitle(data?.title as string);
+            setText(data?.text as string);
+            if (data) {
+                setUseTags([...data.sections] as string[]);
+            }
+        }
+    }, [data])
 
     const options = useMemo(
         () => ({
@@ -52,13 +68,19 @@ const CreatePost = () => {
     const onSubmit = async () => {
         try {
             const fields = {
+                _id: postId,
                 title: title,
                 text: textValue,
                 postImage: imgUrl,
                 sections: useTags
             };
-            await createPost(fields);
-            alert('Пост успешно создан :)');
+            if (postId) {
+                await updatePost(fields);
+                alert('Пост успешно обновлён!');
+            } else {
+                await createPost(fields);
+                alert('Пост успешно создан :)');
+            }
         } catch (e) {
             console.log(e);
             alert('Произошла ошибка :(')
@@ -72,7 +94,13 @@ const CreatePost = () => {
                 isAuth
                 ?
                     <Box className={styles.create} >
-                        <h2 className={styles.create__title} >Создание статьи</h2>
+                        {
+                            postId
+                            ?
+                            <h2 className={styles.create__title} >Редактирование статьи</h2>
+                            :
+                            <h2 className={styles.create__title} >Создание статьи</h2>
+                        }
                         {
                             imgUrl
                             ?
@@ -94,6 +122,8 @@ const CreatePost = () => {
                                 className={styles.create__title_input}
                                 label="Введите заголовок статьи..."
                                 variant="outlined"
+                                type="text"
+                                value={title}
                                 onChange={titleChange}
                             />
                         </Box>
@@ -139,7 +169,14 @@ const CreatePost = () => {
                                 marginTop: '2rem'
                             }} 
                         >
-                            Создать пост
+                            {
+                                postId
+                                ?
+                                    <span>Обновить пост</span>
+                                :
+                                    <span>Создать пост</span>
+                            }
+                            
                         </Button>
                     </Box>
                 :

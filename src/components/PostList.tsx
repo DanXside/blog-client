@@ -17,7 +17,7 @@ const SkeletonItem = () => {
 }
 
 const PostList = () => {
-    const [limit, setLimit] = useState(3);
+    const [limit] = useState(3);
     const [page, setPage] = useState(1);
     const query = {
         limit,
@@ -28,7 +28,7 @@ const PostList = () => {
 
     
 
-    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
     }
 

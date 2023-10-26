@@ -1,4 +1,4 @@
-import { combineReducers, configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { userAPI } from "../services/UserService";
 import authReducer from './reducers/UserReducer';
 import { useDispatch } from "react-redux";

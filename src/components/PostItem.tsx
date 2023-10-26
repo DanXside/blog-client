@@ -22,7 +22,7 @@ interface PostProps {
 
 const PostItem: FC<PostProps> = ({post}) => {
     const {data: user} = userAPI.useGetUserQuery(undefined);
-    const {data: count} = commentAPI.useGetCommCountQuery(post._id as number);
+    const {data: count} = commentAPI.useGetCommCountQuery(post._id as string);
 
     const [deletePost, {}] = postsAPI.useDeletePostMutation();
 
@@ -146,10 +146,12 @@ const PostItem: FC<PostProps> = ({post}) => {
                         user?.roles === 'ADMIN'
                         ?
                         <>
-                            <IconButton>
-                                <EditIcon sx={{width: '2rem', height: '2rem', color: '#C4C4C4'}} />
-                            </IconButton>
-                            <IconButton onClick={() => deletePost(post._id as number)}>
+                            <Link to={`/post/${post._id}/edit`}>
+                                <IconButton>
+                                    <EditIcon sx={{width: '2rem', height: '2rem', color: '#C4C4C4'}} />
+                                </IconButton>
+                            </Link>
+                            <IconButton onClick={() => deletePost(post._id as string)}>
                                 <HighlightOffIcon sx={{width: '2rem', height: '2rem', color: '#C4C4C4'}} />
                             </IconButton>
                         </>
