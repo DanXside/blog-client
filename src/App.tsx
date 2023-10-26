@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/pages/Home/home";
 import { ThemeProvider } from "@emotion/react";
 import { AuthContext } from "./components/context/context";
@@ -32,7 +32,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <AuthContext.Provider value={{isAuth, setAuth}}>
-        <BrowserRouter>
+        <HashRouter>
           <Routes>
             <Route path="/" element={<Home  />} />
             <Route path="/post/:id" element={<DetailPost />} />
@@ -41,7 +41,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/registration" element={<Registration />} />
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </AuthContext.Provider>
     </ThemeProvider>
   )
