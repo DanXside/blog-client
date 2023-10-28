@@ -4,7 +4,7 @@ import { IComment, ICommentOutPut } from "../models/IComment";
 export const commentAPI = createApi({
     reducerPath: 'commentAPI',
     baseQuery: fetchBaseQuery({
-        baseUrl: '95.163.233.134:3001/comment',
+        baseUrl: ':3001/comment',
         prepareHeaders: (headers: Headers) => {
             const token = sessionStorage.getItem('token');
             if (token) {

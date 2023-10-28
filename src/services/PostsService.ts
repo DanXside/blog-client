@@ -5,7 +5,7 @@ import { IPost } from "../models/IPost";
 export const postsAPI = createApi({
     reducerPath: 'postsAPI',
     baseQuery: fetchBaseQuery({
-        baseUrl: '95.163.233.134:3001/posts',
+        baseUrl: ':3001/posts',
         prepareHeaders: (headers: Headers) => {
             const token = sessionStorage.getItem('token');
             if (token) {
