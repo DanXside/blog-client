@@ -13,7 +13,7 @@ const UserInfo = () => {
                     data?.avatar
                     ? 
                     <Box className="userInfo-avatar" sx={{
-                        background: `url(http://localhost:3001${data.avatar ?? ""}) center center/cover no-repeat`
+                        background: `url(95.163.233.134:3001${data.avatar ?? ""}) center center/cover no-repeat`
                     }}>
                     </Box>
                     :

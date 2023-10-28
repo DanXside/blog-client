@@ -61,7 +61,7 @@ const AuthForm: FC<AuthProps> = ({title, buttonText, link, registration, endpoin
             }
             const file = target.files[0];
             formData.append('image', file);
-            const {data} = await axios.post('http://localhost:3001/upload', formData);
+            const {data} = await axios.post('95.163.233.134:3001/upload', formData);
             setImgUrl(data.url);
         }  catch (e) {
             console.warn(e);

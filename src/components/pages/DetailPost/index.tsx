@@ -56,7 +56,7 @@ const DetailPost = () => {
                     {
                         data?.postImage
                         ?
-                        <img src={`http://localhost:3001${data?.postImage}`} alt="post" />
+                        <img src={`95.163.233.134:3001${data?.postImage}`} alt="post" />
                         :
                         <img src="/src/assets/img/posts/post-1.jpeg" alt="post" />
                     }
@@ -93,7 +93,7 @@ const DetailPost = () => {
                                     {
                                         comment?.user.avatar
                                         ?
-                                        <img src={`http://localhost:3001${comment?.user.avatar}`} alt="avatar" />
+                                        <img src={`95.163.233.134:3001${comment?.user.avatar}`} alt="avatar" />
                                         :
                                         <img src="/src/assets/img/avatar/noname.png" />
                                     }
