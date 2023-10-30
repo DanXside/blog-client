@@ -41,7 +41,7 @@ const PostItem: FC<PostProps> = ({post}) => {
                     <CardMedia 
                         component="img"
                         height="245"
-                        image={`:3001${post.postImage}`}
+                        image={`http://pb-blog.ru:3001${post.postImage}`}
                         alt="coding"
                     />
                     :

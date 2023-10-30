@@ -112,7 +112,7 @@ const CreatePost = () => {
                                     }} >
                                         Удалить превью
                                     </Button>
-                                    <img src={`:3001${imgUrl}`} alt="preview" />
+                                    <img src={`http://pb-blog.ru:3001${imgUrl}`} alt="preview" />
                                 </Box>
                             :
                                 <UploadButton btnText="Загрузить превью" setImgUrl={setImgUrl} />

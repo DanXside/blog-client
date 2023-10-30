@@ -20,7 +20,7 @@ const UploadButton: FC<UploadProps> = ({btnText, setImgUrl}) => {
             }
             const file = target.files[0];
             formData.append('image', file);
-            const {data} = await axios.post(':3001/upload', formData);
+            const {data} = await axios.post('http://pb-blog.ru:3001/upload', formData);
             setImgUrl(data.url);
         }  catch (e) {
             console.warn(e);

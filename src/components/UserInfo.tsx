@@ -13,7 +13,7 @@ const UserInfo = () => {
                     data?.avatar
                     ? 
                     <Box className="userInfo-avatar" sx={{
-                        background: `url(:3001${data.avatar ?? ""}) center center/cover no-repeat`
+                        background: `url(http://pb-blog.ru:3001${data.avatar ?? ""}) center center/cover no-repeat`
                     }}>
                     </Box>
                     :

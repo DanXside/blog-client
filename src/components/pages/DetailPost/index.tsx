@@ -56,7 +56,7 @@ const DetailPost = () => {
                     {
                         data?.postImage
                         ?
-                        <img src={`:3001${data?.postImage}`} alt="post" />
+                        <img src={`http://pb-blog.ru:3001${data?.postImage}`} alt="post" />
                         :
                         <img src="/src/assets/img/posts/post-1.jpeg" alt="post" />
                     }
@@ -93,7 +93,7 @@ const DetailPost = () => {
                                     {
                                         comment?.user.avatar
                                         ?
-                                        <img src={`:3001${comment?.user.avatar}`} alt="avatar" />
+                                        <img src={`http://pb-blog.ru:3001${comment?.user.avatar}`} alt="avatar" />
                                         :
                                         <img src="/src/assets/img/avatar/noname.png" />
                                     }

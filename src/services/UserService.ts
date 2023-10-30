@@ -4,7 +4,7 @@ import { IUser } from '../models/IUser';
 export const userAPI = createApi({
     reducerPath: 'userAPI',
     baseQuery: fetchBaseQuery({
-        baseUrl: ':3001/auth',
+        baseUrl: 'http://pb-blog.ru:3001/auth',
         prepareHeaders: (headers: Headers) => {
             const token = sessionStorage.getItem('token');
             if (token) {
