@@ -95,7 +95,7 @@ const DetailPost = () => {
                                         ?
                                         <img src={`http://pb-blog.ru:3001${comment?.user.avatar}`} alt="avatar" />
                                         :
-                                        <img src="/src/assets/img/avatar/noname.png" />
+                                        <img src="http://pb-blog.ru:3001/uploads/noname.png" />
                                     }
                                 </Box>
                                 <span className={styles.postCommentsItem__userName} >{comment?.user.name}</span>
